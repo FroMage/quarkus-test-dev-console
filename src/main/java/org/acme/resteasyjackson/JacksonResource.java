@@ -1,5 +1,6 @@
 package org.acme.resteasyjackson;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collections;
@@ -20,6 +21,16 @@ public class JacksonResource {
         quarks.add(new Quark("???", null));
     }
 
+    @Inject
+    MyCache myCache;
+
+    @Path("cache")
+    @Produces(MediaType.TEXT_PLAIN)
+    @GET
+    public String cache() {
+        return myCache.getStuff();
+    }
+    
     @GET
     public Set<Quark> list() {
         return quarks;
